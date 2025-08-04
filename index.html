@@ -3,107 +3,105 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Oyi Cutie</title>
+  <title>Oyi Cutie 💖</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background: url('ava.jpg') no-repeat center center fixed;
       background-size: cover;
+      color: white;
+      text-align: center;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      flex-direction: column;
-      text-align: center;
-      color: white;
     }
-
-    #heartBtn {
-      font-size: 2rem;
-      background: transparent;
-      border: none;
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 8px #000;
+    }
+    #heart {
+      font-size: 4em;
       cursor: pointer;
-      animation: pulse 2s infinite;
+      transition: transform 0.2s ease;
+      animation: float 2s infinite ease-in-out;
     }
-
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); }
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
     }
-
-    #magicWordSection, #messageSection {
+    #unlock-container {
       display: none;
       margin-top: 20px;
     }
-
+    #final-message {
+      display: none;
+      margin-top: 40px;
+      font-size: 1.5em;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+    }
     input {
       padding: 10px;
-      font-size: 1rem;
-      border-radius: 10px;
+      font-size: 1em;
+      border-radius: 5px;
       border: none;
-      outline: none;
     }
-
     button {
-      margin-top: 10px;
       padding: 10px 20px;
-      font-size: 1rem;
-      border-radius: 20px;
+      margin-left: 10px;
+      font-size: 1em;
+      border-radius: 5px;
+      background: pink;
       border: none;
-      background-color: pink;
       cursor: pointer;
     }
   </style>
 </head>
 <body>
+  <audio autoplay loop>
+    <source src="ava_ja.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
   <h1>Oyi Cutie 💖</h1>
-  <button id="heartBtn">💗 Touch Me</button>
-
-  <div id="magicWordSection">
-    <p>Say the magic word to unlock:</p>
-    <input type="text" id="magicInput" placeholder="Type here..." />
-    <br/>
+  <div id="heart">❤️</div>
+  <div id="unlock-container">
+    <p>Say the magic words 🪄</p>
+    <input id="magicInput" type="text" placeholder="Type here...">
     <button onclick="checkMagicWord()">Unlock</button>
   </div>
-
-  <div id="messageSection">
-    <h2>You are the most precious part of my life 💖</h2>
-    <p>You just touched my heart 💘</p>
+  <div id="final-message">
+    You are the most precious part of my life 💖
   </div>
 
-  <audio id="bgMusic" src="ava_ja.mp3" loop></audio>
-
   <script>
-    const heartBtn = document.getElementById('heartBtn');
-    const magicSection = document.getElementById('magicWordSection');
-    const messageSection = document.getElementById('messageSection');
-    const bgMusic = document.getElementById('bgMusic');
+    let heart = document.getElementById('heart');
+    let unlockContainer = document.getElementById('unlock-container');
+    let finalMessage = document.getElementById('final-message');
 
-    let tries = 0;
-
-    heartBtn.addEventListener('click', () => {
-      tries++;
-      if (tries < 3) {
-        heartBtn.style.position = 'absolute';
-        heartBtn.style.left = Math.random() * 80 + '%';
-        heartBtn.style.top = Math.random() * 80 + '%';
+    let moveCount = 0;
+    heart.addEventListener('click', () => {
+      if (moveCount < 3) {
+        heart.style.transform = `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px)`;
+        moveCount++;
       } else {
-        heartBtn.style.display = 'none';
-        magicSection.style.display = 'block';
+        heart.style.transform = 'scale(1.3)';
+        unlockContainer.style.display = 'block';
       }
     });
 
     function checkMagicWord() {
-      const input = document.getElementById('magicInput').value.trim();
-      if (input.toLowerCase() === 'i love numan') {
-        magicSection.style.display = 'none';
-        messageSection.style.display = 'block';
-        bgMusic.play();
+      let input = document.getElementById('magicInput').value.trim().toLowerCase();
+      if (input === 'i love numan') {
+        unlockContainer.style.display = 'none';
+        finalMessage.style.display = 'block';
       } else {
-        alert('Oops! Try again...');
+        alert('Wrong magic word 😢');
       }
     }
   </script>
