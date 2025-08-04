@@ -3,69 +3,109 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>For My Love ❤️</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <title>Oyi Cutie</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: url('optimized_bg.jpg') no-repeat center center fixed;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background: url('ava.jpg') no-repeat center center fixed;
       background-size: cover;
-      font-family: 'Great Vibes', cursive;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      color: white;
-      text-shadow: 2px 2px 4px #000000;
-    }
-    #message {
-      font-size: 2em;
-      margin-bottom: 20px;
+      flex-direction: column;
       text-align: center;
-      max-width: 90%;
+      color: white;
     }
-    .heart-button {
-      font-size: 3em;
-      cursor: pointer;
-      border: none;
+
+    #heartBtn {
+      font-size: 2rem;
       background: transparent;
-      transition: transform 0.3s ease;
+      border: none;
+      cursor: pointer;
+      animation: pulse 2s infinite;
     }
-    .heart-button:hover {
-      transform: scale(1.2);
-    }
-    .heart-button:active {
-      transform: scale(1.5);
-    }
+
     @keyframes pulse {
       0% { transform: scale(1); }
-      50% { transform: scale(1.1); }
+      50% { transform: scale(1.2); }
       100% { transform: scale(1); }
     }
-    .playing {
-      animation: pulse 1s infinite;
+
+    #magicWordSection, #messageSection {
+      display: none;
+      margin-top: 20px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border-radius: 20px;
+      border: none;
+      background-color: pink;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div id="message">You are the most precious part of my life 💖</div>
-  <button class="heart-button" id="heartBtn">❤️</button>
+  <h1>Oyi Cutie 💖</h1>
+  <button id="heartBtn">💗 Touch Me</button>
 
-  <audio id="loveSong" autoplay loop>
-    <source src="https://raw.githubusercontent.com/b4d5h4h/love-app-for-her/main/ava_ja.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+  <div id="magicWordSection">
+    <p>Say the magic word to unlock:</p>
+    <input type="text" id="magicInput" placeholder="Type here..." />
+    <br/>
+    <button onclick="checkMagicWord()">Unlock</button>
+  </div>
+
+  <div id="messageSection">
+    <h2>You are the most precious part of my life 💖</h2>
+    <p>You just touched my heart 💘</p>
+  </div>
+
+  <audio id="bgMusic" src="ava_ja.mp3" loop></audio>
 
   <script>
     const heartBtn = document.getElementById('heartBtn');
-    const loveSong = document.getElementById('loveSong');
+    const magicSection = document.getElementById('magicWordSection');
+    const messageSection = document.getElementById('messageSection');
+    const bgMusic = document.getElementById('bgMusic');
+
+    let tries = 0;
 
     heartBtn.addEventListener('click', () => {
-      heartBtn.classList.add('playing');
-      document.getElementById('message').innerText = 'You just touched my heart 💘';
+      tries++;
+      if (tries < 3) {
+        heartBtn.style.position = 'absolute';
+        heartBtn.style.left = Math.random() * 80 + '%';
+        heartBtn.style.top = Math.random() * 80 + '%';
+      } else {
+        heartBtn.style.display = 'none';
+        magicSection.style.display = 'block';
+      }
     });
+
+    function checkMagicWord() {
+      const input = document.getElementById('magicInput').value.trim();
+      if (input.toLowerCase() === 'i love numan') {
+        magicSection.style.display = 'none';
+        messageSection.style.display = 'block';
+        bgMusic.play();
+      } else {
+        alert('Oops! Try again...');
+      }
+    }
   </script>
 </body>
 </html>
