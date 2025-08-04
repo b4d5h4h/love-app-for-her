@@ -17,6 +17,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      overflow: hidden;
     }
     h1 {
       font-size: 2.5em;
@@ -26,12 +27,13 @@
     #heart {
       font-size: 4em;
       cursor: pointer;
-      transition: transform 0.2s ease;
+      transition: transform 0.3s ease;
+      position: absolute;
       animation: float 2s infinite ease-in-out;
     }
     @keyframes float {
       0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      50% { transform: translateY(-15px); }
       100% { transform: translateY(0); }
     }
     #unlock-container {
@@ -41,30 +43,43 @@
     #final-message {
       display: none;
       margin-top: 40px;
-      font-size: 1.5em;
-      background: rgba(0, 0, 0, 0.5);
+      font-size: 1.8em;
+      background: rgba(0, 0, 0, 0.6);
       padding: 20px;
-      border-radius: 10px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px pink;
+      animation: glow 1.5s ease-in-out infinite alternate;
     }
-    input {
+    @keyframes glow {
+      from { box-shadow: 0 0 10px pink; }
+      to { box-shadow: 0 0 30px hotpink; }
+    }
+    input, button {
       padding: 10px;
       font-size: 1em;
       border-radius: 5px;
       border: none;
     }
     button {
-      padding: 10px 20px;
       margin-left: 10px;
-      font-size: 1em;
-      border-radius: 5px;
       background: pink;
-      border: none;
       cursor: pointer;
+    }
+    .heart-particle {
+      position: absolute;
+      font-size: 1.5em;
+      animation: rise 2s linear forwards;
+    }
+    @keyframes rise {
+      to {
+        transform: translateY(-200px);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
-  <audio autoplay loop>
+  <audio id="bg-music" loop>
     <source src="ava_ja.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
@@ -76,18 +91,33 @@
     <button onclick="checkMagicWord()">Unlock</button>
   </div>
   <div id="final-message">
-    You are the most precious part of my life 💖
+    <img src="ava.jpg" style="width: 150px; border-radius: 50%; box-shadow: 0 0 15px white; margin-bottom: 20px;">
+    <p>I Love You ❤️ Forever Yours, Numan</p>
   </div>
 
   <script>
-    let heart = document.getElementById('heart');
-    let unlockContainer = document.getElementById('unlock-container');
-    let finalMessage = document.getElementById('final-message');
-
+    const heart = document.getElementById('heart');
+    const unlockContainer = document.getElementById('unlock-container');
+    const finalMessage = document.getElementById('final-message');
+    const bgMusic = document.getElementById('bg-music');
     let moveCount = 0;
-    heart.addEventListener('click', () => {
+
+    function createHeartParticle(x, y) {
+      const particle = document.createElement('div');
+      particle.classList.add('heart-particle');
+      particle.textContent = '💖';
+      particle.style.left = `${x}px`;
+      particle.style.top = `${y}px`;
+      document.body.appendChild(particle);
+      setTimeout(() => particle.remove(), 2000);
+    }
+
+    heart.addEventListener('click', (e) => {
+      bgMusic.play();
+      createHeartParticle(e.clientX, e.clientY);
       if (moveCount < 3) {
-        heart.style.transform = `translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px)`;
+        heart.style.left = `${Math.random() * window.innerWidth * 0.8}px`;
+        heart.style.top = `${Math.random() * window.innerHeight * 0.8}px`;
         moveCount++;
       } else {
         heart.style.transform = 'scale(1.3)';
@@ -100,10 +130,17 @@
       if (input === 'i love numan') {
         unlockContainer.style.display = 'none';
         finalMessage.style.display = 'block';
+        heart.style.display = 'none';
       } else {
         alert('Wrong magic word 😢');
       }
     }
+
+    // Initialize heart at center
+    heart.style.left = '50%';
+    heart.style.top = '50%';
+    heart.style.position = 'absolute';
+    heart.style.transform = 'translate(-50%, -50%)';
   </script>
 </body>
 </html>
