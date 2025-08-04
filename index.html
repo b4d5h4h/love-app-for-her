@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Oyi Cutie</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Open+Sans&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Open Sans', sans-serif;
+      background-image: url('optimized_bg.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .overlay {
+      background: rgba(0,0,0,0.6);
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #fff;
+      text-align: center;
+    }
+    h1 {
+      font-family: 'Pacifico', cursive;
+      font-size: 3rem;
+    }
+    #heartBtn {
+      background-color: #ff4f81;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: 0.2s ease;
+      position: absolute;
+    }
+    #magicInput {
+      margin-top: 20px;
+      display: none;
+    }
+    #magicInput input {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+    }
+    #magicInput button {
+      padding: 10px 20px;
+      background-color: #ff4f81;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #finalMessage {
+      display: none;
+      font-size: 1.8rem;
+      padding: 20px;
+    }
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <h1>Oyi Cutie</h1>
+    <button id="heartBtn">❤️</button>
+    <div id="magicInput">
+      <p>Whisper the magic word...</p>
+      <input type="text" id="magicWord" placeholder="Type here..." />
+      <button onclick="checkMagic()">Enter</button>
+    </div>
+    <div id="finalMessage">
+      For the most beautiful soul I've ever known — you are not just the love of my life, you are my peace, my smile, my forever. ❤️
+    </div>
+    <audio id="bgMusic" controls autoplay loop>
+      <source src="https://www.youtube.com/embed/IsaOXzb4Uh0?autoplay=1" type="audio/mpeg">
+    </audio>
+  </div>
+
+  <script>
+    const heartBtn = document.getElementById("heartBtn");
+    const magicInput = document.getElementById("magicInput");
+    const finalMessage = document.getElementById("finalMessage");
+    const music = document.getElementById("bgMusic");
+
+    let clicked = false;
+
+    function moveButton() {
+      if (!clicked) {
+        const x = Math.random() * (window.innerWidth - 100);
+        const y = Math.random() * (window.innerHeight - 100);
+        heartBtn.style.left = `${x}px`;
+        heartBtn.style.top = `${y}px`;
+      }
+    }
+
+    heartBtn.addEventListener("mouseover", moveButton);
+
+    heartBtn.addEventListener("click", () => {
+      clicked = true;
+      heartBtn.style.display = "none";
+      magicInput.style.display = "block";
+    });
+
+    function checkMagic() {
+      const value = document.getElementById("magicWord").value.trim();
+      if (value.toLowerCase() === "i love numan") {
+        magicInput.style.display = "none";
+        finalMessage.style.display = "block";
+        music.play();
+      } else {
+        alert("That’s not the magic word, cutie!");
+      }
+    }
+  </script>
+</body>
+</html>
