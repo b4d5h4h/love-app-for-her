@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Oyi Cutie 💖</title>
   <style>
     body {
@@ -12,69 +12,89 @@
       background-size: cover;
       color: white;
       text-align: center;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       overflow: hidden;
     }
+
     h1 {
       font-size: 2.5em;
-      margin-bottom: 30px;
+      margin-top: 60px;
       text-shadow: 2px 2px 8px #000;
     }
+
     #heart {
       font-size: 4em;
       cursor: pointer;
-      transition: transform 0.3s ease;
       position: absolute;
+      transition: transform 0.3s ease;
       animation: float 2s infinite ease-in-out;
     }
+
     @keyframes float {
       0% { transform: translateY(0); }
       50% { transform: translateY(-15px); }
       100% { transform: translateY(0); }
     }
+
     #unlock-container {
       display: none;
       margin-top: 20px;
     }
+
     #final-message {
       display: none;
-      margin-top: 40px;
-      font-size: 1.8em;
-      background: rgba(0, 0, 0, 0.6);
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px pink;
-      animation: glow 1.5s ease-in-out infinite alternate;
+      margin-top: 30px;
+      font-size: 1.5em;
+      animation: fadeIn 2s forwards;
     }
-    @keyframes glow {
-      from { box-shadow: 0 0 10px pink; }
-      to { box-shadow: 0 0 30px hotpink; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
     }
+
     input, button {
       padding: 10px;
       font-size: 1em;
       border-radius: 5px;
       border: none;
     }
+
     button {
       margin-left: 10px;
       background: pink;
       cursor: pointer;
     }
-    .heart-particle {
+
+    .heart-particle, .flower-particle {
       position: absolute;
       font-size: 1.5em;
+      pointer-events: none;
       animation: rise 2s linear forwards;
     }
+
     @keyframes rise {
       to {
         transform: translateY(-200px);
         opacity: 0;
       }
+    }
+
+    .typewriter {
+      display: inline-block;
+      border-right: 2px solid white;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      animation: typing 4s steps(30, end) forwards, blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
     }
   </style>
 </head>
@@ -83,16 +103,19 @@
     <source src="ava_ja.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
+
   <h1>Oyi Cutie 💖</h1>
   <div id="heart">❤️</div>
+
   <div id="unlock-container">
     <p>Say the magic words 🪄</p>
     <input id="magicInput" type="text" placeholder="Type here...">
     <button onclick="checkMagicWord()">Unlock</button>
   </div>
+
   <div id="final-message">
-    <img src="ava.jpg" style="width: 150px; border-radius: 50%; box-shadow: 0 0 15px white; margin-bottom: 20px;">
-    <p>I Love You ❤️ Forever Yours, Numan</p>
+    <img src="bva.jpg" style="width: 160px; border-radius: 50%; box-shadow: 0 0 15px white; margin-bottom: 20px;">
+    <p class="typewriter">I Love You ❤️ Forever Yours, Numan</p>
   </div>
 
   <script>
@@ -102,44 +125,64 @@
     const bgMusic = document.getElementById('bg-music');
     let moveCount = 0;
 
-    function createHeartParticle(x, y) {
+    function createParticle(content, className, x, y) {
       const particle = document.createElement('div');
-      particle.classList.add('heart-particle');
-      particle.textContent = '💖';
+      particle.className = className;
+      particle.textContent = content;
       particle.style.left = `${x}px`;
       particle.style.top = `${y}px`;
       document.body.appendChild(particle);
       setTimeout(() => particle.remove(), 2000);
     }
 
+    function createHeartBurst(x, y) {
+      for (let i = 0; i < 15; i++) {
+        const offsetX = (Math.random() - 0.5) * 100;
+        const offsetY = (Math.random() - 0.5) * 100;
+        createParticle('💖', 'heart-particle', x + offsetX, y + offsetY);
+      }
+    }
+
+    function createFlowerShower() {
+      for (let i = 0; i < 40; i++) {
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+        createParticle('🌸', 'flower-particle', x, y);
+      }
+    }
+
     heart.addEventListener('click', (e) => {
-      bgMusic.play();
-      createHeartParticle(e.clientX, e.clientY);
+      bgMusic.volume = 0.8;
+      bgMusic.play().catch((err) => console.log("Playback error:", err));
+      createHeartBurst(e.clientX, e.clientY);
       if (moveCount < 3) {
-        heart.style.left = `${Math.random() * window.innerWidth * 0.8}px`;
-        heart.style.top = `${Math.random() * window.innerHeight * 0.8}px`;
+        const randomX = Math.random() * (window.innerWidth - 100);
+        const randomY = Math.random() * (window.innerHeight - 100);
+        heart.style.left = `${randomX}px`;
+        heart.style.top = `${randomY}px`;
         moveCount++;
       } else {
-        heart.style.transform = 'scale(1.3)';
+        heart.style.animation = '';
         unlockContainer.style.display = 'block';
+        heart.style.pointerEvents = 'none';
       }
     });
 
     function checkMagicWord() {
       let input = document.getElementById('magicInput').value.trim().toLowerCase();
-      if (input === 'i love numan') {
+      if (input === 'you are mine') {
         unlockContainer.style.display = 'none';
         finalMessage.style.display = 'block';
         heart.style.display = 'none';
+        createFlowerShower();
       } else {
         alert('Wrong magic word 😢');
       }
     }
 
-    // Initialize heart at center
+    // Set initial heart position
     heart.style.left = '50%';
     heart.style.top = '50%';
-    heart.style.position = 'absolute';
     heart.style.transform = 'translate(-50%, -50%)';
   </script>
 </body>
