@@ -1,131 +1,100 @@
-
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', sans-serif;
+  background: url('ava.jpg') center/cover no-repeat;
+  font-family: 'Comic Sans MS', cursive;
   overflow: hidden;
-  background: #000;
-  color: white;
+}
+
+#app {
   text-align: center;
-}
-
-.bg, .final-bg {
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-  object-fit: cover;
-  z-index: -1;
-}
-
-#unlock-screen {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: #000;
-}
-
-#magicInput {
-  padding: 1em;
-  font-size: 18px;
-  margin-top: 10px;
-}
-
-button {
-  padding: 10px 20px;
-  font-size: 18px;
-  margin-top: 10px;
-  background: pink;
-  border: none;
-  cursor: pointer;
-}
-
-.typewriter {
-  font-size: 3em;
-  margin-top: 30vh;
-  animation: typing 4s steps(30, end), blink 1s step-end infinite;
-  white-space: nowrap;
-  overflow: hidden;
-  border-right: 2px solid white;
-}
-
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-@keyframes blink {
-  50% { border-color: transparent }
-}
-
-.heart-container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.heart {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background: red;
-  transform: rotate(45deg);
-  animation: float 4s linear infinite;
-}
-
-.heart::before,
-.heart::after {
-  content: "";
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  background: red;
-  border-radius: 50%;
-}
-
-.heart::before {
-  top: -10px;
-  left: 0;
-}
-
-.heart::after {
-  left: -10px;
-  top: 0;
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0) rotate(45deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(-100vh) rotate(45deg);
-    opacity: 0;
-  }
-}
-
-#teddy {
-  height: 300px;
-  margin-top: 20vh;
-  transition: transform 0.3s ease;
-}
-
-#instruction {
-  font-size: 24px;
-  margin-top: 20px;
-}
-
-.rose {
-  width: 150px;
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
+  color: white;
+  padding-top: 20vh;
 }
 
 .hidden {
   display: none;
+}
+
+input {
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  background: #ff5c8d;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.tap-hint {
+  animation: bounce 2s infinite;
+  font-size: 1.5em;
+}
+
+.glow-text {
+  color: #fff;
+  text-shadow: 0 0 10px #ff9efc, 0 0 20px #ff33ff, 0 0 30px #ff33ff;
+  font-size: 2em;
+}
+
+#final-photo {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.i-love-you {
+  font-size: 3em;
+  animation: typewriter 3s steps(15) 1s forwards;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 2px solid #fff;
+  width: 0;
+  margin-top: 40vh;
+  text-shadow: 0 0 5px #fff, 0 0 15px red;
+}
+
+#teddy {
+  width: 200px;
+  margin-top: 30px;
+  cursor: pointer;
+  animation: heartbeat 1.5s infinite;
+}
+
+#rose {
+  width: 100px;
+  margin-top: 20px;
+  animation: fadeIn 2s forwards;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 12em; }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
