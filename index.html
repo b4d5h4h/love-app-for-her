@@ -1,47 +1,41 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>My Love App ❤️</title>
-  <link rel="stylesheet" href="style.css"/>
+  <title>For My Love</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <audio id="bg-music" loop autoplay>
-    <source src="ava_ja.mp3" type="audio/mpeg" />
-    Your browser does not support the audio element.
+<div id="unlock-screen">
+  <h1 class="title">💌 Enter the Magic Words</h1>
+  <input id="magicInput" type="text" placeholder="Type here..." />
+  <button onclick="checkMagic()">Unlock</button>
+</div>
+
+<div id="main-content" class="hidden">
+  <audio id="bg-music" autoplay loop>
+    <source src="ava_ja.mp3" type="audio/mpeg">
   </audio>
 
-  <div id="unlock-screen">
-    <div class="magic-input-container">
-      <p>Type the magic words to unlock:</p>
-      <input type="text" id="magic-word" placeholder="Magic words..." />
-      <button onclick="checkMagicWord()">Unlock</button>
-    </div>
-  </div>
+  <img src="ava.jpg" alt="Background" class="bg" />
 
-  <div id="heart-game" class="hidden">
-    <h2 class="typewriter">I Love You 💖</h2>
-    <p class="tap-instruction">Tap on the hearts 💘</p>
-    <div class="heart" onclick="nextHeart(1)"></div>
-    <div class="heart hidden" onclick="nextHeart(2)"></div>
-    <div class="heart hidden" onclick="nextHeart(3)"></div>
-  </div>
+  <div class="heart-container"></div>
+  <div id="love-message" class="typewriter">I Love You 💖</div>
+</div>
 
-  <div id="teddy-game" class="hidden">
-    <p class="touch-msg">Touch Teddy's Belly 3 Times</p>
-    <img src="teddy.png" id="teddy" onclick="touchTeddy()" />
-  </div>
+<div id="game-section" class="hidden">
+  <img src="teddy.png" id="teddy" />
+  <div id="instruction">Touch my belly 💕</div>
+</div>
 
-  <div id="final-screen" class="hidden">
-    <img src="bva.jpg" class="final-image" />
-    <img src="rose.png" class="rose"/>
-    <div class="love-message">I Love You Forever ❤️</div>
-  </div>
+<div id="final-screen" class="hidden">
+  <img src="bva.jpg" class="final-bg" />
+  <img src="rose.png" class="rose" />
+</div>
 
-  <canvas id="particles-canvas"></canvas>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
