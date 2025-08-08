@@ -19,4 +19,20 @@
   <div id="unlock-container" class="hidden">
     <div class="prompt">
       <p>Enter the magic words:</p>
-      <input type="text" id="mag
+      <input type="text" id="magicInput" placeholder="Magic words..." />
+      <button onclick="checkMagic()">Unlock</button>
+    </div>
+  </div>
+
+  <div id="final-screen" class="hidden">
+    <img src="bva.jpg" class="bg" />
+    <div id="love-text"></div>
+    <div id="game-container">
+      <img src="teddy.png" id="teddy" />
+      <img src="rose.png" id="rose" class="hidden" />
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
