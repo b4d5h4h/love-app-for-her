@@ -3,287 +3,45 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Meri Pyari Cutie 💖</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: url('ava.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: white;
-      text-align: center;
-      overflow: hidden;
-    }
-
-    h1 {
-      font-size: 2.5em;
-      margin-top: 60px;
-      text-shadow: 2px 2px 8px #000;
-    }
-
-    #heart {
-      font-size: 4em;
-      cursor: pointer;
-      position: absolute;
-      transition: transform 0.3s ease;
-      animation: float 2s infinite ease-in-out;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-      100% { transform: translateY(0); }
-    }
-
-    #unlock-container {
-      display: none;
-      margin-top: 20px;
-    }
-
-    #final-message {
-      display: none;
-      margin-top: 30px;
-      font-size: 1.5em;
-      animation: fadeIn 2s forwards;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.8); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    input, button {
-      padding: 10px;
-      font-size: 1em;
-      border-radius: 5px;
-      border: none;
-    }
-
-    button {
-      margin-left: 10px;
-      background: pink;
-      cursor: pointer;
-    }
-
-    .heart-particle, .flower-particle {
-      position: absolute;
-      font-size: 1.5em;
-      pointer-events: none;
-      animation: rise 2s linear forwards;
-    }
-
-    @keyframes rise {
-      to {
-        transform: translateY(-200px);
-        opacity: 0;
-      }
-    }
-
-    .typewriter {
-      display: inline-block;
-      border-right: 2px solid white;
-      white-space: nowrap;
-      overflow: hidden;
-      width: 0;
-      animation: typing 4s steps(30, end) forwards, blink 0.75s step-end infinite;
-    }
-
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent; }
-    }
-  </style>
+  <title>My Love App ❤️</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <audio id="bg-music" loop>
-    <source src="ava_ja.mp3" type="audio/mpeg">
+
+  <audio id="bg-music" loop autoplay>
+    <source src="ava_ja.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
 
-  <h1>Meri Pyari Cutie 💖</h1>
-  <div id="heart">❤️</div>
-
-  <div id="unlock-container">
-    <p>Type "You are mine" 🪄</p>
-    <input id="magicInput" type="text" placeholder="Type here...">
-    <button onclick="checkMagicWord()">Unlock</button>
+  <div id="unlock-screen">
+    <div class="magic-input-container">
+      <p>Type the magic words to unlock:</p>
+      <input type="text" id="magic-word" placeholder="Magic words..." />
+      <button onclick="checkMagicWord()">Unlock</button>
+    </div>
   </div>
 
-  <div id="final-message">
-    <img src="bva.jpg" style="width: 160px; border-radius: 50%; box-shadow: 0 0 15px white; margin-bottom: 20px;">
-    <p class="typewriter">I Love You ❤️ Forever Yours, Numan</p>
+  <div id="heart-game" class="hidden">
+    <h2 class="typewriter">I Love You 💖</h2>
+    <p class="tap-instruction">Tap on the hearts 💘</p>
+    <div class="heart" onclick="nextHeart(1)"></div>
+    <div class="heart hidden" onclick="nextHeart(2)"></div>
+    <div class="heart hidden" onclick="nextHeart(3)"></div>
   </div>
 
-  <script>
-    const heart = document.getElementById('heart');
-    const unlockContainer = document.getElementById('unlock-container');
-    const finalMessage = document.getElementById('final-message');
-    const bgMusic = document.getElementById('bg-music');
-    let moveCount = 0;
-
-    function createParticle(content, className, x, y) {
-      const particle = document.createElement('div');
-      particle.className = className;
-      particle.textContent = content;
-      particle.style.left = `${x}px`;
-      particle.style.top = `${y}px`;
-      document.body.appendChild(particle);
-      setTimeout(() => particle.remove(), 2000);
-    }
-
-    function createHeartBurst(x, y) {
-      for (let i = 0; i < 15; i++) {
-        const offsetX = (Math.random() - 0.5) * 100;
-        const offsetY = (Math.random() - 0.5) * 100;
-        createParticle('💖', 'heart-particle', x + offsetX, y + offsetY);
-      }
-    }
-
-    function createFlowerShower() {
-      for (let i = 0; i < 40; i++) {
-        const x = Math.random() * window.innerWidth;
-        const y = Math.random() * window.innerHeight;
-        createParticle('🌸', 'flower-particle', x, y);
-      }
-    }
-
-    heart.addEventListener('click', (e) => {
-      bgMusic.volume = 0.8;
-      bgMusic.play().catch((err) => console.log("Playback error:", err));
-      createHeartBurst(e.clientX, e.clientY);
-      if (moveCount < 3) {
-        const randomX = Math.random() * (window.innerWidth - 100);
-        const randomY = Math.random() * (window.innerHeight - 100);
-        heart.style.left = `${randomX}px`;
-        heart.style.top = `${randomY}px`;
-        moveCount++;
-      } else {
-        heart.style.animation = '';
-        unlockContainer.style.display = 'block';
-        heart.style.pointerEvents = 'none';
-      }
-    });
-
-    function checkMagicWord() {
-      let input = document.getElementById('magicInput').value.trim().toLowerCase();
-      if (input === 'you are mine') {
-        unlockContainer.style.display = 'none';
-        finalMessage.style.display = 'block';
-        heart.style.display = 'none';
-        createFlowerShower();
-      } else {
-        alert('Wrong magic word 😢');
-      }
-    }
-
-    // Set initial heart position
-    heart.style.left = '50%';
-    heart.style.top = '50%';
-    heart.style.transform = 'translate(-50%, -50%)';
-  </script>
-  <!-- ❤️ Teddy Love Game Section -->
-<div id="love-game" style="display: none;">
-  <div id="game-container">
-    <img id="teddy" src="teddy.png" alt="Teddy Bear" />
-    <div id="caption">Touch my belly 🧸</div>
-    <img id="rose" src="rose.png" alt="Rose" />
+  <div id="teddy-game" class="hidden">
+    <p class="touch-msg">Touch Teddy's Belly 3 Times</p>
+    <img src="teddy.png" id="teddy" onclick="touchTeddy()" />
   </div>
-</div>
 
-<style>
-  #game-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #fff0f5;
-    z-index: 9999;
-  }
+  <div id="final-screen" class="hidden">
+    <img src="bva.jpg" class="final-image" />
+    <img src="rose.png" class="rose"/>
+    <div class="love-message">I Love You Forever ❤️</div>
+  </div>
 
-  #teddy {
-    width: 200px;
-    animation: pulse 2s infinite;
-    cursor: pointer;
-    filter: drop-shadow(0 0 10px #ff66a3);
-  }
+  <canvas id="particles-canvas"></canvas>
 
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-  }
-
-  .heart {
-    position: absolute;
-    color: red;
-    font-size: 24px;
-    animation: floatUp 2s ease-out forwards;
-    pointer-events: none;
-  }
-
-  @keyframes floatUp {
-    0% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-100px); }
-  }
-
-  #caption {
-    margin-top: 10px;
-    font-size: 20px;
-    color: #d6336c;
-  }
-
-  #rose {
-    display: none;
-    width: 100px;
-    margin-top: 20px;
-    animation: fadeIn 2s ease-in-out forwards;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.8); }
-    to { opacity: 1; transform: scale(1); }
-  }
-</style>
-
-<script>
-  function showLoveGame() {
-    document.getElementById('love-game').style.display = 'block';
-  }
-
-  // Triggered from your final message logic after delay
-  setTimeout(showLoveGame, 7000); // 7 seconds after final screen, adjust as needed
-
-  const teddy = document.getElementById('teddy');
-  const rose = document.getElementById('rose');
-
-  teddy.addEventListener('click', (e) => {
-    const heart = document.createElement('div');
-    heart.classList.add('heart');
-    heart.style.left = (e.clientX - 10) + 'px';
-    heart.style.top = (e.clientY - 20) + 'px';
-    heart.textContent = '❤️';
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 2000);
-  });
-
-  let touchCount = 0;
-  teddy.addEventListener('click', () => {
-    touchCount++;
-    if (touchCount >= 3) {
-      rose.style.display = 'block';
-    }
-  });
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
-
-
-
