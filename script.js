@@ -1,66 +1,41 @@
-const music = document.getElementById('bg-music');
-music.volume = 0.4;
 
-function checkMagicWord() {
-  const input = document.getElementById('magic-word').value.toLowerCase().trim();
+function checkMagic() {
+  const input = document.getElementById('magicInput').value.trim().toLowerCase();
   if (input === "you are mine") {
-    document.getElementById('unlock-screen').classList.add('hidden');
-    document.getElementById('heart-game').classList.remove('hidden');
-    music.play();
-    showParticles();
-  } else {
-    alert("Try again... Hint: It's a lovely phrase 😉");
+    document.getElementById("unlock-screen").classList.add("hidden");
+    document.getElementById("main-content").classList.remove("hidden");
+    playHearts();
+    setTimeout(() => {
+      document.getElementById("main-content").classList.add("hidden");
+      document.getElementById("game-section").classList.remove("hidden");
+    }, 7000);
   }
 }
 
-function nextHeart(step) {
-  const hearts = document.querySelectorAll('.heart');
-  if (step < hearts.length) {
-    hearts[step].classList.remove('hidden');
-  } else {
-    document.getElementById('heart-game').classList.add('hidden');
-    document.getElementById('teddy-game').classList.remove('hidden');
+function playHearts() {
+  const container = document.querySelector(".heart-container");
+  for (let i = 0; i < 30; i++) {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.top = Math.random() * 100 + "vh";
+    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    container.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
   }
 }
 
-let teddyTouches = 0;
-function touchTeddy() {
-  teddyTouches++;
-  if (teddyTouches === 3) {
-    document.getElementById('teddy-game').classList.add('hidden');
-    document.getElementById('final-screen').classList.remove('hidden');
-  }
-}
+document.addEventListener("DOMContentLoaded", function () {
+  const teddy = document.getElementById("teddy");
+  teddy.addEventListener("click", () => {
+    teddy.style.transform = "scale(1.1) rotate(5deg)";
+    setTimeout(() => {
+      document.getElementById("game-section").classList.add("hidden");
+      document.getElementById("final-screen").classList.remove("hidden");
+    }, 1500);
+  });
 
-function showParticles() {
-  const canvas = document.getElementById("particles-canvas");
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const hearts = [];
-  for (let i = 0; i < 50; i++) {
-    hearts.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 10 + 10,
-      speedY: Math.random() * -1 - 0.5
-    });
-  }
-
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    hearts.forEach(h => {
-      ctx.beginPath();
-      ctx.fillStyle = "pink";
-      ctx.moveTo(h.x, h.y);
-      ctx.arc(h.x, h.y, h.size, 0, Math.PI * 2);
-      ctx.fill();
-      h.y += h.speedY;
-      if (h.y < -h.size) h.y = canvas.height + h.size;
-    });
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-}
+  const music = document.getElementById("bg-music");
+  music.volume = 0.5;
+  music.play().catch(() => {});
+});
