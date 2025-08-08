@@ -3,64 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>For You ❤️</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <!-- Background Music -->
-  <audio id="bg-music" src="ava_ja.mp3" autoplay loop></audio>
-
-  <!-- Background Image -->
-  <div id="bg" class="background">
-    <div id="heart" class="heart"></div>
-  </div>
-
-  <!-- Unlock Section -->
-  <div id="unlock-section" class="hidden">
-    <p class="magic-text">What's the magic phrase?</p>
-    <input type="text" id="magic-input" placeholder="Type here
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>For My Love</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <audio id="bg-music" loop autoplay>
+  <audio id="bg-music" autoplay loop>
     <source src="ava_ja.mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- Initial Screen -->
-  <div id="start-screen">
-    <img src="ava.jpg" id="initial-bg" />
-    <div id="heart-area">
-      <div class="heart" id="numan-heart"></div>
-      <p id="touch-text">Touch Numan's Heart 💖</p>
-    </div>
+  <div id="main-container">
+    <img src="ava.jpg" id="start-bg" class="bg" />
+    <div id="heart" onclick="unlockPrompt()">❤️</div>
   </div>
 
-  <!-- Unlock Modal -->
-  <div id="magic-unlock">
-    <input type="text" id="magic-input" placeholder="Enter magic words..." />
-    <button onclick="checkMagic()">Unlock</button>
-    <p id="error-msg"></p>
-  </div>
-
-  <!-- Final Romantic Screen -->
-  <div id="final-screen">
-    <img src="bva.jpg" id="final-bg" />
-    <h1 id="love-text"></h1>
-  </div>
-
-  <!-- Teddy Game -->
-  <div id="game-area">
-    <img src="teddy.png" id="teddy" />
-    <img src="rose.png" id="rose" />
-  </div>
-
-  <script src="script.js"></script>
-</body>
-</html>
-
+  <div id="unlock-container" class="hidden">
+    <div class="prompt">
+      <p>Enter the magic words:</p>
+      <input type="text" id="mag
