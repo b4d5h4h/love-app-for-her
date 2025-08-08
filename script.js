@@ -1,50 +1,63 @@
-const music = document.getElementById('bg-music');
-const input = document.getElementById('magic-input');
-const teddy = document.getElementById('teddy');
-const rose = document.getElementById('rose');
+const bgMusic = document.getElementById('bg-music');
+bgMusic.volume = 0.6;
+
+document.getElementById('numan-heart').addEventListener('click', () => {
+  document.getElementById('magic-unlock').style.display = 'flex';
+});
 
 function checkMagic() {
-  const val = input.value.trim().toLowerCase();
-  if (val === "you are mine") {
-    document.getElementById("start-screen").classList.add("hidden");
-    document.getElementById("main-content").classList.remove("hidden");
-    startEffects();
-
-    setTimeout(() => {
-      document.getElementById("main-content").classList.add("hidden");
-      document.getElementById("game-section").classList.remove("hidden");
-    }, 7000);
+  const input = document.getElementById('magic-input').value.trim().toLowerCase();
+  if (input === "you are mine") {
+    unlockLove();
   } else {
-    alert("Try again, my love 💖");
+    document.getElementById('error-msg').innerText = "That's not the magic word 😢";
   }
 }
 
-function startEffects() {
-  createParticles('heart', 30, 'heart-burst');
-  createParticles('flower', 20, 'flower-shower');
-  document.getElementById("love-note").innerText = "I Love You ❤️";
-  music.play().catch(() => {});
+function unlockLove() {
+  document.getElementById('start-screen').style.display = 'none';
+  document.getElementById('magic-unlock').style.display = 'none';
+  document.getElementById('final-screen').style.display = 'flex';
+  launchHearts();
+  typeLove();
+  setTimeout(() => {
+    document.getElementById('final-screen').style.display = 'none';
+    startGame();
+  }, 6000);
 }
 
-function createParticles(type, count, containerId) {
-  const container = document.getElementById(containerId);
-  for (let i = 0; i < count; i++) {
-    const el = document.createElement("div");
-    el.className = type;
-    el.style.left = Math.random() * 100 + "vw";
-    el.style.top = "100vh";
-    container.appendChild(el);
+function typeLove() {
+  const loveText = document.getElementById('love-text');
+  loveText.textContent = "I Love You ❤️";
+}
+
+function launchHearts() {
+  for (let i = 0; i < 30; i++) {
+    const heart = document.createElement("div");
+    heart.innerText = "💖";
+    heart.style.position = "absolute";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.top = Math.random() * window.innerHeight + "px";
+    heart.style.fontSize = "24px";
+    heart.style.opacity = 1;
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 2000);
   }
 }
 
-// Game logic
-let moveCount = 0;
-teddy.addEventListener("click", () => {
-  moveCount++;
-  teddy.style.left = Math.random() * 80 + "%";
-  teddy.style.bottom = Math.random() * 50 + "%";
+function startGame() {
+  const game = document.getElementById('game-area');
+  const teddy = document.getElementById('teddy');
+  const rose = document.getElementById('rose');
+  game.style.display = 'flex';
 
-  if (moveCount >= 5) {
-    rose.style.display = "block";
-  }
-});
+  teddy.addEventListener('mouseenter', () => {
+    teddy.style.left = Math.random() * (window.innerWidth - 150) + 'px';
+    teddy.style.top = Math.random() * (window.innerHeight - 150) + 'px';
+  });
+
+  teddy.addEventListener('click', () => {
+    teddy.remove();
+    rose.style.display = 'block';
+  });
+}
