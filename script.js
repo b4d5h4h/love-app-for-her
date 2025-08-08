@@ -19,7 +19,7 @@ let roseGiven = false;
 function teddyTouched() {
   if (!roseGiven) {
     document.getElementById("rose").classList.remove("hidden");
-    document.querySelector(".tap-msg").textContent = "Teddy loves you! 💖";
+    document.querySelector(".tap-msg").textContent = "Numan loves you! 💖";
     roseGiven = true;
   }
 }
