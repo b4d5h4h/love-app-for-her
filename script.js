@@ -1,41 +1,41 @@
+const music = document.getElementById('bg-music');
+music.volume = 0.4;
 
 function checkMagic() {
-  const input = document.getElementById('magicInput').value.trim().toLowerCase();
-  if (input === "you are mine") {
-    document.getElementById("unlock-screen").classList.add("hidden");
-    document.getElementById("main-content").classList.remove("hidden");
-    playHearts();
+  const input = document.getElementById('magic-input').value.trim().toLowerCase();
+  if (input === 'you are mine') {
+    document.getElementById('lock-screen').classList.add('hidden');
+    document.getElementById('main-screen').classList.remove('hidden');
+    startHeartRain();
     setTimeout(() => {
-      document.getElementById("main-content").classList.add("hidden");
-      document.getElementById("game-section").classList.remove("hidden");
+      document.getElementById('main-screen').classList.add('hidden');
+      document.getElementById('final-screen').classList.remove('hidden');
     }, 7000);
-  }
-}
-
-function playHearts() {
-  const container = document.querySelector(".heart-container");
-  for (let i = 0; i < 30; i++) {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.top = Math.random() * 100 + "vh";
-    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
-    container.appendChild(heart);
-    setTimeout(() => heart.remove(), 5000);
-  }
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-  const teddy = document.getElementById("teddy");
-  teddy.addEventListener("click", () => {
-    teddy.style.transform = "scale(1.1) rotate(5deg)";
     setTimeout(() => {
-      document.getElementById("game-section").classList.add("hidden");
-      document.getElementById("final-screen").classList.remove("hidden");
-    }, 1500);
-  });
+      document.getElementById('final-screen').classList.add('hidden');
+      document.getElementById('game-screen').classList.remove('hidden');
+    }, 12000);
+  } else {
+    alert('Try again with the correct magic words.');
+  }
+}
 
-  const music = document.getElementById("bg-music");
-  music.volume = 0.5;
-  music.play().catch(() => {});
-});
+function startHeartRain() {
+  setInterval(() => {
+    const heart = document.createElement('div');
+    heart.textContent = '💖';
+    heart.style.position = 'absolute';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.top = '0';
+    heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+    heart.style.animation = 'fall 5s linear forwards';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }, 200);
+}
+
+function offerRose() {
+  const rose = document.getElementById('rose');
+  rose.classList.remove('hidden');
+  rose.style.display = 'block';
+}
