@@ -3,34 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Love App for Her</title>
+  <title>Mini Love App</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <audio id="bg-music" autoplay loop>
-    <source src="ava_ja.mp3" type="audio/mpeg">
+    <source src="ava_ja.mp3" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
 
-  <div id="unlock-screen">
-    <h2>Magic Word?</h2>
-    <input id="magic-word" placeholder="Enter magic word..." />
-    <button onclick="checkMagicWord()">Unlock</button>
-  </div>
-
-  <div id="love-screen" class="hidden">
-    <img src="ava.jpg" class="background" />
-    <div id="heart-container"></div>
-    <div id="message" class="typewriter">I Love You ❤️</div>
-  </div>
-
-  <div id="game-screen" class="hidden">
-    <img id="bva-img" src="bva.jpg" class="background hidden" />
-    <div id="teddy-container">
-      <img id="teddy" src="teddy.png" />
-      <img id="rose" src="rose.png" class="hidden" />
+  <div id="container">
+    <img id="bg-image" src="ava.jpg" alt="Background">
+    <div id="unlock-screen">
+      <h1>Enter the Magic Words 💫</h1>
+      <input type="text" id="magic-input" placeholder="Type here...">
+      <button onclick="checkMagic()">Unlock</button>
     </div>
-    <div id="final-message" class="glow hidden">Forever Yours 💖</div>
+
+    <div id="love-message" class="hidden">
+      <div id="hearts-container"></div>
+      <div id="flowers-container"></div>
+      <h1 id="romantic-text"></h1>
+      <div id="tap-instructions" class="hidden">💗 Tap the hearts 💗</div>
+    </div>
+
+    <div id="teddy-game" class="hidden">
+      <img id="teddy" src="teddy.png" alt="Teddy">
+      <img id="rose" src="rose.png" class="hidden" alt="Rose">
+    </div>
+
+    <img id="final-image" src="bva.jpg" class="hidden" alt="Final Love">
   </div>
 
   <script src="script.js"></script>
