@@ -1,68 +1,48 @@
-// Magical unlock
-function checkMagic() {
-  const input = document.getElementById("magicInput").value.toLowerCase().trim();
-  if (input === "you are mine") {
-    document.querySelector(".container").classList.add("hidden");
-    document.getElementById("loveScreen").classList.remove("hidden");
-    setTimeout(() => {
-      document.getElementById("loveScreen").classList.add("hidden");
-      document.getElementById("gameScreen").classList.remove("hidden");
-    }, 5000);
+const music = document.getElementById("bg-music");
+const magicInput = document.getElementById("magic-word");
+
+function checkMagicWord() {
+  const val = magicInput.value.toLowerCase().trim();
+  if (val === "you are mine") {
+    document.getElementById("unlock-screen").classList.add("hidden");
+    document.getElementById("love-screen").classList.remove("hidden");
+    startHearts();
+    setTimeout(() => showGameScreen(), 12000);
+    music.volume = 0.7;
+    music.play().catch(e => console.log("Autoplay failed:", e));
   } else {
-    alert("Nope! Try again with your heart ❤️");
+    alert("Try again, my love 💖");
   }
 }
 
-// Game logic
-let roseGiven = false;
-
-function teddyTouched() {
-  if (!roseGiven) {
-    document.getElementById("rose").classList.remove("hidden");
-    document.querySelector(".tap-msg").textContent = "Numan loves you! 💖";
-    roseGiven = true;
-  }
+function startHearts() {
+  const container = document.getElementById("heart-container");
+  setInterval(() => {
+    const h = document.createElement("div");
+    h.className = Math.random() > 0.5 ? "heart" : "flower";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.top = "100vh";
+    h.style.animationDuration = 2 + Math.random() * 3 + "s";
+    container.appendChild(h);
+    setTimeout(() => container.removeChild(h), 4000);
+  }, 200);
 }
 
-// Heart animation
-const canvas = document.getElementById('hearts');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function showGameScreen() {
+  document.getElementById("love-screen").classList.add("hidden");
+  document.getElementById("game-screen").classList.remove("hidden");
+  document.getElementById("bva-img").classList.remove("hidden");
 
-let hearts = [];
+  const teddy = document.getElementById("teddy");
+  const rose = document.getElementById("rose");
+  const finalMessage = document.getElementById("final-message");
 
-function createHeart() {
-  const x = Math.random() * canvas.width;
-  const y = canvas.height + 10;
-  const size = Math.random() * 8 + 5;
-  const speed = Math.random() * 1 + 0.5;
-  hearts.push({x, y, size, speed});
+  teddy.addEventListener("click", () => {
+    teddy.style.transform = "translateX(-50%) translateY(-20px) rotate(-5deg)";
+    setTimeout(() => {
+      teddy.style.transform = "translateX(-50%)";
+      rose.classList.remove("hidden");
+      finalMessage.classList.remove("hidden");
+    }, 1000);
+  });
 }
-
-function drawHearts() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (let h of hearts) {
-    ctx.beginPath();
-    ctx.fillStyle = "#ff69b4";
-    ctx.moveTo(h.x, h.y);
-    ctx.arc(h.x - h.size / 2, h.y - h.size / 2, h.size / 2, 0, Math.PI * 2);
-    ctx.arc(h.x + h.size / 2, h.y - h.size / 2, h.size / 2, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.beginPath();
-    ctx.moveTo(h.x - h.size, h.y - h.size / 3);
-    ctx.lineTo(h.x, h.y + h.size);
-    ctx.lineTo(h.x + h.size, h.y - h.size / 3);
-    ctx.fill();
-    h.y -= h.speed;
-  }
-  hearts = hearts.filter(h => h.y + h.size > 0);
-}
-
-function animate() {
-  drawHearts();
-  requestAnimationFrame(animate);
-}
-
-setInterval(createHeart, 200);
-animate();
