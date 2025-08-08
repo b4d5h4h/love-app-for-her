@@ -1,41 +1,43 @@
-const music = document.getElementById('bg-music');
-music.volume = 0.4;
+const music = document.getElementById("bg-music");
+let isUnlocked = false;
 
-function checkMagic() {
-  const input = document.getElementById('magic-input').value.trim().toLowerCase();
-  if (input === 'you are mine') {
-    document.getElementById('lock-screen').classList.add('hidden');
-    document.getElementById('main-screen').classList.remove('hidden');
-    startHeartRain();
-    setTimeout(() => {
-      document.getElementById('main-screen').classList.add('hidden');
-      document.getElementById('final-screen').classList.remove('hidden');
-    }, 7000);
-    setTimeout(() => {
-      document.getElementById('final-screen').classList.add('hidden');
-      document.getElementById('game-screen').classList.remove('hidden');
-    }, 12000);
+function checkMagicWord() {
+  const input = document.getElementById("magic-word").value.trim().toLowerCase();
+  if (input === "you are mine") {
+    unlockLove();
   } else {
-    alert('Try again with the correct magic words.');
+    alert("Try again, my love 💌");
   }
 }
 
-function startHeartRain() {
-  setInterval(() => {
-    const heart = document.createElement('div');
-    heart.textContent = '💖';
-    heart.style.position = 'absolute';
-    heart.style.left = Math.random() * 100 + 'vw';
-    heart.style.top = '0';
-    heart.style.fontSize = Math.random() * 20 + 20 + 'px';
-    heart.style.animation = 'fall 5s linear forwards';
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 5000);
-  }, 200);
+function unlockLove() {
+  document.getElementById("magic-entry").classList.add("hidden");
+  document.getElementById("love-screen").classList.remove("hidden");
+  music.play().catch(() => console.log("Autoplay blocked — user needs to interact."));
+  startHeartShower();
+
+  setTimeout(() => {
+    document.getElementById("love-screen").classList.add("hidden");
+    document.getElementById("final-screen").classList.remove("hidden");
+  }, 7000);
 }
 
-function offerRose() {
-  const rose = document.getElementById('rose');
-  rose.classList.remove('hidden');
-  rose.style.display = 'block';
+function startHeartShower() {
+  const container = document.getElementById("hearts-container");
+  for (let i = 0; i < 100; i++) {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    container.appendChild(heart);
+  }
 }
+
+document.getElementById("game-launcher").addEventListener("click", () => {
+  document.getElementById("final-screen").classList.add("hidden");
+  document.getElementById("game-screen").classList.remove("hidden");
+});
+
+document.getElementById("teddy").addEventListener("click", () => {
+  document.getElementById("rose").classList.remove("hidden");
+});
