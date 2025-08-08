@@ -1,164 +1,131 @@
+
 body {
   margin: 0;
   padding: 0;
-  font-family: cursive;
-  background: url('ava.jpg') no-repeat center center fixed;
-  background-size: cover;
+  font-family: 'Segoe UI', sans-serif;
   overflow: hidden;
-}
-
-audio {
-  display: none;
-}
-
-#unlock-screen {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.magic-input-container {
-  background: rgba(255,255,255,0.8);
-  padding: 20px;
-  border-radius: 10px;
+  background: #000;
+  color: white;
   text-align: center;
 }
 
-input {
-  padding: 10px;
-  font-size: 16px;
+.bg, .final-bg {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+
+#unlock-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #000;
+}
+
+#magicInput {
+  padding: 1em;
+  font-size: 18px;
+  margin-top: 10px;
 }
 
 button {
-  padding: 10px 15px;
-  font-size: 16px;
-  background-color: pink;
+  padding: 10px 20px;
+  font-size: 18px;
+  margin-top: 10px;
+  background: pink;
   border: none;
-  border-radius: 5px;
-  margin-left: 10px;
-}
-
-.hidden {
-  display: none !important;
-}
-
-.heart {
-  width: 60px;
-  height: 60px;
-  background: red;
-  position: absolute;
-  border-radius: 50%;
-  animation: pulse 1s infinite;
   cursor: pointer;
-  box-shadow: 0 0 10px red;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.heart:nth-child(3) {
-  left: 30%;
-  top: 40%;
-}
-
-.heart:nth-child(4) {
-  left: 70%;
-  top: 60%;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.3); }
-  100% { transform: scale(1); }
 }
 
 .typewriter {
-  font-size: 2rem;
-  color: white;
-  animation: typing 3s steps(22), blink .5s step-end infinite alternate;
+  font-size: 3em;
+  margin-top: 30vh;
+  animation: typing 4s steps(30, end), blink 1s step-end infinite;
   white-space: nowrap;
   overflow: hidden;
-  border-right: 3px solid white;
-  width: 0;
-  animation-fill-mode: forwards;
+  border-right: 2px solid white;
 }
 
 @keyframes typing {
   from { width: 0 }
-  to { width: 22ch }
+  to { width: 100% }
 }
 
 @keyframes blink {
   50% { border-color: transparent }
 }
 
-.tap-instruction {
-  color: white;
-  font-size: 18px;
-  text-align: center;
-  margin-top: 20px;
+.heart-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
 }
 
-#teddy-game {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
+.heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: red;
+  transform: rotate(45deg);
+  animation: float 4s linear infinite;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: red;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -10px;
+  left: 0;
+}
+
+.heart::after {
+  left: -10px;
+  top: 0;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(45deg);
+    opacity: 0;
+  }
 }
 
 #teddy {
-  width: 150px;
-  animation: shake 0.6s infinite;
+  height: 300px;
+  margin-top: 20vh;
+  transition: transform 0.3s ease;
 }
 
-@keyframes shake {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(2deg); }
-  50% { transform: rotate(-2deg); }
-  75% { transform: rotate(2deg); }
-  100% { transform: rotate(0deg); }
-}
-
-#final-screen {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  animation: fadeIn 2s;
-}
-
-.final-image {
-  max-width: 80%;
-  border-radius: 15px;
-  box-shadow: 0 0 20px pink;
+#instruction {
+  font-size: 24px;
+  margin-top: 20px;
 }
 
 .rose {
-  width: 80px;
-  margin-top: 20px;
+  width: 150px;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.love-message {
-  color: white;
-  font-size: 28px;
-  margin-top: 20px;
-  animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-  from { text-shadow: 0 0 5px white; }
-  to { text-shadow: 0 0 20px pink; }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.hidden {
+  display: none;
 }
