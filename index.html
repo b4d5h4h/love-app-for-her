@@ -2,34 +2,41 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>You're Mine 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For My Love</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <audio id="bg-music" loop autoplay>
-    <source src="ava_ja.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
+    <source src="ava_ja.mp3" type="audio/mpeg" />
   </audio>
 
+  <!-- Initial Screen -->
   <div id="start-screen">
-    <h1>Enter the Magic Words</h1>
-    <input type="text" id="magic-input" placeholder="Enter magic phrase..." />
+    <img src="ava.jpg" id="initial-bg" />
+    <div id="heart-area">
+      <div class="heart" id="numan-heart"></div>
+      <p id="touch-text">Touch Numan's Heart 💖</p>
+    </div>
+  </div>
+
+  <!-- Unlock Modal -->
+  <div id="magic-unlock">
+    <input type="text" id="magic-input" placeholder="Enter magic words..." />
     <button onclick="checkMagic()">Unlock</button>
+    <p id="error-msg"></p>
   </div>
 
-  <div id="main-content" class="hidden">
-    <img src="ava.jpg" id="bg-image" alt="Love BG" />
-    <div id="heart-burst"></div>
-    <div id="flower-shower"></div>
-    <div id="love-note"></div>
-  </div>
-
-  <div id="game-section" class="hidden">
+  <!-- Final Romantic Screen -->
+  <div id="final-screen">
     <img src="bva.jpg" id="final-bg" />
-    <h2 class="love-type">I Love You ❤️</h2>
-    <img src="teddy.png" id="teddy" alt="Teddy Bear" />
-    <img src="rose.png" id="rose" alt="Rose" />
+    <h1 id="love-text"></h1>
+  </div>
+
+  <!-- Teddy Game -->
+  <div id="game-area">
+    <img src="teddy.png" id="teddy" />
+    <img src="rose.png" id="rose" />
   </div>
 
   <script src="script.js"></script>
