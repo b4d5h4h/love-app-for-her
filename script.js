@@ -1,48 +1,66 @@
-const music = document.getElementById("bg-music");
-const magicInput = document.getElementById("magic-word");
+const bgMusic = document.getElementById("bg-music");
+const bgImage = document.getElementById("bg-image");
+const finalImage = document.getElementById("final-image");
+const unlockScreen = document.getElementById("unlock-screen");
+const loveMessage = document.getElementById("love-message");
+const romanticText = document.getElementById("romantic-text");
+const tapInstructions = document.getElementById("tap-instructions");
+const teddyGame = document.getElementById("teddy-game");
+const teddy = document.getElementById("teddy");
+const rose = document.getElementById("rose");
+const heartsContainer = document.getElementById("hearts-container");
+const flowersContainer = document.getElementById("flowers-container");
 
-function checkMagicWord() {
-  const val = magicInput.value.toLowerCase().trim();
+function checkMagic() {
+  const val = document.getElementById("magic-input").value.trim().toLowerCase();
   if (val === "you are mine") {
-    document.getElementById("unlock-screen").classList.add("hidden");
-    document.getElementById("love-screen").classList.remove("hidden");
-    startHearts();
-    setTimeout(() => showGameScreen(), 12000);
-    music.volume = 0.7;
-    music.play().catch(e => console.log("Autoplay failed:", e));
+    unlockScreen.classList.add("hidden");
+    loveMessage.classList.remove("hidden");
+    playEffects();
+    setTimeout(() => {
+      tapInstructions.classList.remove("hidden");
+    }, 3000);
   } else {
-    alert("Try again, my love 💖");
+    alert("Wrong magic words!");
   }
 }
 
-function startHearts() {
-  const container = document.getElementById("heart-container");
-  setInterval(() => {
-    const h = document.createElement("div");
-    h.className = Math.random() > 0.5 ? "heart" : "flower";
-    h.style.left = Math.random() * 100 + "vw";
-    h.style.top = "100vh";
-    h.style.animationDuration = 2 + Math.random() * 3 + "s";
-    container.appendChild(h);
-    setTimeout(() => container.removeChild(h), 4000);
-  }, 200);
+function playEffects() {
+  romanticText.textContent = "I Love You 💖";
+  for (let i = 0; i < 40; i++) {
+    createFloating("❤️", heartsContainer);
+    createFloating("🌸", flowersContainer);
+  }
 }
 
-function showGameScreen() {
-  document.getElementById("love-screen").classList.add("hidden");
-  document.getElementById("game-screen").classList.remove("hidden");
-  document.getElementById("bva-img").classList.remove("hidden");
+function createFloating(char, container) {
+  const el = document.createElement("div");
+  el.className = char === "❤️" ? "heart" : "flower";
+  el.textContent = char;
+  el.style.left = Math.random() * 100 + "vw";
+  el.style.top = Math.random() * 100 + "vh";
+  el.style.fontSize = (Math.random() * 20 + 20) + "px";
+  container.appendChild(el);
+  setTimeout(() => container.removeChild(el), 5000);
+}
 
-  const teddy = document.getElementById("teddy");
-  const rose = document.getElementById("rose");
-  const finalMessage = document.getElementById("final-message");
+tapInstructions.addEventListener("click", () => {
+  loveMessage.classList.add("hidden");
+  teddyGame.classList.remove("hidden");
+});
 
-  teddy.addEventListener("click", () => {
-    teddy.style.transform = "translateX(-50%) translateY(-20px) rotate(-5deg)";
+teddy.addEventListener("click", () => {
+  const x = Math.random() * 200 - 100;
+  const y = Math.random() * 200 - 100;
+  teddy.style.transform = `translate(${x}px, ${y}px) rotate(${Math.random() * 20 - 10}deg)`;
+  setTimeout(() => {
+    teddy.style.transform = "translate(0, 0)";
     setTimeout(() => {
-      teddy.style.transform = "translateX(-50%)";
       rose.classList.remove("hidden");
-      finalMessage.classList.remove("hidden");
+      setTimeout(() => {
+        teddyGame.classList.add("hidden");
+        finalImage.classList.remove("hidden");
+      }, 2000);
     }, 1000);
-  });
-}
+  }, 500);
+});
