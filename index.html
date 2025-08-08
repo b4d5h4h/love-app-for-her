@@ -3,36 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mini Love App</title>
-  <link rel="stylesheet" href="style.css">
+  <title>You're Mine 💖</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <audio id="bg-music" autoplay loop>
-    <source src="ava_ja.mp3" type="audio/mpeg" />
+  <audio id="bg-music" loop autoplay>
+    <source src="ava_ja.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
-  <div id="container">
-    <img id="bg-image" src="ava.jpg" alt="Background">
-    <div id="unlock-screen">
-      <h1>Enter the Magic Words 💫</h1>
-      <input type="text" id="magic-input" placeholder="Type here...">
-      <button onclick="checkMagic()">Unlock</button>
-    </div>
+  <div id="start-screen">
+    <h1>Enter the Magic Words</h1>
+    <input type="text" id="magic-input" placeholder="Enter magic phrase..." />
+    <button onclick="checkMagic()">Unlock</button>
+  </div>
 
-    <div id="love-message" class="hidden">
-      <div id="hearts-container"></div>
-      <div id="flowers-container"></div>
-      <h1 id="romantic-text"></h1>
-      <div id="tap-instructions" class="hidden">💗 Tap the hearts 💗</div>
-    </div>
+  <div id="main-content" class="hidden">
+    <img src="ava.jpg" id="bg-image" alt="Love BG" />
+    <div id="heart-burst"></div>
+    <div id="flower-shower"></div>
+    <div id="love-note"></div>
+  </div>
 
-    <div id="teddy-game" class="hidden">
-      <img id="teddy" src="teddy.png" alt="Teddy">
-      <img id="rose" src="rose.png" class="hidden" alt="Rose">
-    </div>
-
-    <img id="final-image" src="bva.jpg" class="hidden" alt="Final Love">
+  <div id="game-section" class="hidden">
+    <img src="bva.jpg" id="final-bg" />
+    <h2 class="love-type">I Love You ❤️</h2>
+    <img src="teddy.png" id="teddy" alt="Teddy Bear" />
+    <img src="rose.png" id="rose" alt="Rose" />
   </div>
 
   <script src="script.js"></script>
