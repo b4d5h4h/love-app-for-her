@@ -8,20 +8,37 @@
 </head>
 <body>
 
-  <!-- Background music -->
+  <!-- Background Music -->
   <audio id="bg-music" autoplay loop>
-    <source src="ava_ja.mp3" type="audio/mpeg">
+    <source src="ava_ja.mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- Background and unlock UI -->
+  <!-- Start Screen -->
   <div class="container">
     <img src="ava.jpg" class="background" />
     <div class="unlock-section">
-      <p>Say the magic words...</p>
-      <input type="text" id="magicInput" placeholder="Enter magic words" />
+      <p>Enter the magic words to unlock my heart 💖</p>
+      <input type="text" id="magicInput" placeholder="Type here..." />
       <button onclick="checkMagic()">Unlock</button>
     </div>
     <canvas id="hearts"></canvas>
   </div>
 
-  <!-- Final love message -->
+  <!-- Final Message Screen -->
+  <div class="love-screen hidden" id="loveScreen">
+    <img src="bva.jpg" class="love-bg" />
+    <div class="message">
+      <h1 class="typewriter">I Love You Forever ❤️</h1>
+    </div>
+  </div>
+
+  <!-- Teddy Game Screen -->
+  <div class="game-screen hidden" id="gameScreen">
+    <p class="tap-msg">Tap on Teddy’s belly 🧸</p>
+    <img src="teddy.png" class="teddy" id="teddy" onclick="teddyTouched()" />
+    <img src="rose.png" class="rose hidden" id="rose" />
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
