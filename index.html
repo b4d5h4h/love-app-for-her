@@ -3,38 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>For You ❤️</title>
+  <title>Mini Love App</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <audio id="bg-music" src="ava_ja.mp3" loop></audio>
 
+  <!-- Background music -->
+  <audio id="bg-music" autoplay loop>
+    <source src="ava_ja.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Background and unlock UI -->
   <div class="container">
-    <div id="magic-entry">
-      <h1>Enter the Magic Words 💫</h1>
-      <input type="text" id="magic-word" placeholder="Type something sweet..." />
-      <button onclick="checkMagicWord()">Unlock</button>
+    <img src="ava.jpg" class="background" />
+    <div class="unlock-section">
+      <p>Say the magic words...</p>
+      <input type="text" id="magicInput" placeholder="Enter magic words" />
+      <button onclick="checkMagic()">Unlock</button>
     </div>
-
-    <div id="love-screen" class="hidden">
-      <img src="ava.jpg" class="bg-img" />
-      <div id="hearts-container"></div>
-      <h1 class="love-text">I Love You ❤️</h1>
-    </div>
-
-    <div id="final-screen" class="hidden">
-      <img src="bva.jpg" class="bg-img final-bg" />
-      <div class="glow-text">I Love You</div>
-      <div id="game-launcher">Tap to Play a Little Game 💝</div>
-    </div>
-
-    <div id="game-screen" class="hidden">
-      <img id="teddy" src="teddy.png" alt="Teddy" />
-      <img id="rose" src="rose.png" class="hidden" />
-      <p class="game-instruction">Touch the teddy bear’s belly 💖</p>
-    </div>
+    <canvas id="hearts"></canvas>
   </div>
 
-  <script src="script.js"></script>
-</body>
-</html>
+  <!-- Final love message -->
