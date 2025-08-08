@@ -7,7 +7,7 @@ document.getElementById('numan-heart').addEventListener('click', () => {
 
 function checkMagic() {
   const input = document.getElementById('magic-input').value.trim().toLowerCase();
-  if (input === "you are mine") {
+  if (input === "I love Numan") {
     unlockLove();
   } else {
     document.getElementById('error-msg').innerText = "That's not the magic word 😢";
@@ -28,7 +28,7 @@ function unlockLove() {
 
 function typeLove() {
   const loveText = document.getElementById('love-text');
-  loveText.textContent = "I Love You ❤️";
+  loveText.textContent = "I Love You Cutie❤️";
 }
 
 function launchHearts() {
