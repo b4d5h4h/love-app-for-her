@@ -1,63 +1,64 @@
-const bgMusic = document.getElementById('bg-music');
-bgMusic.volume = 0.6;
+const heart = document.getElementById("heart");
+const unlockSection = document.getElementById("unlock-section");
+const finalScreen = document.getElementById("final-screen");
+const loveMessage = document.getElementById("love-message");
+const gameArea = document.getElementById("game-area");
+const teddy = document.getElementById("teddy");
+const rose = document.getElementById("rose");
 
-document.getElementById('numan-heart').addEventListener('click', () => {
-  document.getElementById('magic-unlock').style.display = 'flex';
+const music = document.getElementById("bg-music");
+music.volume = 0.4;
+
+heart.addEventListener("click", () => {
+  heart.style.display = "none";
+  unlockSection.classList.remove("hidden");
 });
 
-function checkMagic() {
-  const input = document.getElementById('magic-input').value.trim().toLowerCase();
-  if (input === "I love Numan") {
-    unlockLove();
+function checkMagicWord() {
+  const input = document.getElementById("magic-input").value.trim().toLowerCase();
+  if (input === "you are mine") {
+    unlockSection.classList.add("hidden");
+    showFinalScreen();
   } else {
-    document.getElementById('error-msg').innerText = "That's not the magic word 😢";
+    alert("Try again!");
   }
 }
 
-function unlockLove() {
-  document.getElementById('start-screen').style.display = 'none';
-  document.getElementById('magic-unlock').style.display = 'none';
-  document.getElementById('final-screen').style.display = 'flex';
-  launchHearts();
-  typeLove();
-  setTimeout(() => {
-    document.getElementById('final-screen').style.display = 'none';
-    startGame();
-  }, 6000);
-}
+function showFinalScreen() {
+  finalScreen.classList.remove("hidden");
 
-function typeLove() {
-  const loveText = document.getElementById('love-text');
-  loveText.textContent = "I Love You Cutie❤️";
-}
-
-function launchHearts() {
+  // Hearts & Flowers burst
   for (let i = 0; i < 30; i++) {
     const heart = document.createElement("div");
-    heart.innerText = "💖";
+    heart.textContent = "💖";
     heart.style.position = "absolute";
     heart.style.left = Math.random() * window.innerWidth + "px";
     heart.style.top = Math.random() * window.innerHeight + "px";
-    heart.style.fontSize = "24px";
-    heart.style.opacity = 1;
+    heart.style.fontSize = Math.random() * 30 + 20 + "px";
+    heart.style.animation = "floatUp 3s ease forwards";
     document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 2000);
+
+    setTimeout(() => heart.remove(), 3000);
   }
+
+  loveMessage.textContent = "I Love You ❤️";
 }
 
 function startGame() {
-  const game = document.getElementById('game-area');
-  const teddy = document.getElementById('teddy');
-  const rose = document.getElementById('rose');
-  game.style.display = 'flex';
+  finalScreen.classList.add("hidden");
+  gameArea.classList.remove("hidden");
+  moveTeddy();
+}
 
-  teddy.addEventListener('mouseenter', () => {
-    teddy.style.left = Math.random() * (window.innerWidth - 150) + 'px';
-    teddy.style.top = Math.random() * (window.innerHeight - 150) + 'px';
-  });
+function moveTeddy() {
+  teddy.style.left = Math.random() * 80 + "%";
+  teddy.style.top = Math.random() * 80 + "%";
 
-  teddy.addEventListener('click', () => {
-    teddy.remove();
-    rose.style.display = 'block';
-  });
+  // After few touches, show rose
+  let count = teddy.dataset.touchCount ? parseInt(teddy.dataset.touchCount) : 0;
+  count++;
+  teddy.dataset.touchCount = count;
+  if (count > 5) {
+    rose.classList.remove("hidden");
+  }
 }
