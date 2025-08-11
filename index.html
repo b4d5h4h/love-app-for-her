@@ -1,35 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>For My Love</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>For My Love ❤️</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <audio id="bg-music" autoplay loop>
-    <source src="ava_ja.mp3" type="audio/mpeg" />
-  </audio>
+  <!-- audio element: NOT autoplaying until first user interaction to avoid mobile blocks -->
+  <audio id="bg-music" src="ava_ja.mp3" loop preload="auto"></audio>
 
-  <div id="main-container">
-    <img src="ava.jpg" id="start-bg" class="bg" />
-    <div id="heart" onclick="unlockPrompt()">❤️</div>
-  </div>
-
-  <div id="unlock-container" class="hidden">
-    <div class="prompt">
-      <p>Enter the magic words:</p>
-      <input type="text" id="magicInput" placeholder="Magic words..." />
-      <button onclick="checkMagic()">Unlock</button>
+  <!-- START SCREEN -->
+  <div id="start-screen" class="screen">
+    <img id="main-bg" src="ava.jpg" alt="background" />
+    <div id="center-area">
+      <div id="numan-heart" aria-label="Numan's heart" title="Touch Numan's heart">❤️</div>
+      <div id="start-hint">Touch Numan's heart</div>
     </div>
   </div>
 
-  <div id="final-screen" class="hidden">
-    <img src="bva.jpg" class="bg" />
-    <div id="love-text"></div>
-    <div id="game-container">
-      <img src="teddy.png" id="teddy" />
-      <img src="rose.png" id="rose" class="hidden" />
+  <!-- UNLOCK MODAL (appears after heart tap) -->
+  <div id="unlock-modal" class="modal hidden" role="dialog" aria-modal="true" aria-label="Unlock">
+    <div class="modal-card">
+      <h3>Say the magic words</h3>
+      <input id="magic-input" type="text" inputmode="text" autocomplete="off" placeholder="Type here..." />
+      <div class="row">
+        <button id="unlock-btn">Unlock</button>
+        <button id="cancel-btn" class="ghost">Cancel</button>
+      </div>
+      <p id="unlock-error" class="error" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <!-- FINAL ROMANTIC SCREEN (bva.jpg) -->
+  <div id="final-screen" class="screen hidden">
+    <img id="final-bg" src="bva.jpg" alt="final" />
+    <div id="typing-container">
+      <div id="type-text"></div>
+    </div>
+  </div>
+
+  <!-- TEDDY GAME -->
+  <div id="game-screen" class="screen hidden">
+    <img id="game-bg" src="bva.jpg" alt="" />
+    <div id="game-ui">
+      <div id="teddy-area">
+        <img id="teddy" src="teddy.png" alt="teddy" draggable="false" />
+        <img id="rose" src="rose.png" alt="rose" class="hidden" />
+      </div>
+      <div id="game-msg" class="hidden">She caught my heart ♥️</div>
     </div>
   </div>
 
